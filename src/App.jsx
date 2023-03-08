@@ -21,16 +21,21 @@ export function App() {
 		'tcl-shopping-list-token-history',
 	);
 
+	const handleSetListToken = (token) => {
+		// if token isn't in history, add it
+		if (!tokenHistory.some((tokenObject) => tokenObject.token === token)) {
+			var tokenObject = {
+				token: token,
+				alias: '',
+			};
+			setTokenHistory([...tokenHistory, tokenObject]);
+		}
+		setListToken(token);
+	};
+
 	const handleNewToken = () => {
 		const newToken = generateToken();
-		setListToken(newToken);
-
-		var tokenObject = {
-			token: newToken,
-			alias: '',
-		};
-		// Add the new token to the token history
-		setTokenHistory([...tokenHistory, tokenObject]);
+		handleSetListToken(newToken);
 	};
 
 	useEffect(() => {
@@ -66,7 +71,7 @@ export function App() {
 						element={
 							<Home
 								handleNewToken={handleNewToken}
-								setListToken={setListToken}
+								setListToken={handleSetListToken}
 								listToken={listToken}
 								tokenHistory={tokenHistory}
 							/>

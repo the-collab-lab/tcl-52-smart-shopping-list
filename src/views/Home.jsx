@@ -82,26 +82,29 @@ export function Home({
 					</div>
 				</form>
 			)}
-			<p> Here are your previous lists</p>
-			<ul>
-				{tokenHistory.reverse().map((token) => {
-					return (
-						<li key={token.token}>
-							<button
-								onClick={() => {
-									setListToken(token.token);
-									redirect('/list');
-								}}
-							>
-								{token.alias
-									? token.alias + ' (' + token.token + ')'
-									: token.token}
-							</button>
-						</li>
-					);
-				})}
-			</ul>
-
+			{tokenHistory && tokenHistory.length > 0 ? (
+				<div>
+					<p> Here are your previous lists</p>
+					<ul>
+						{tokenHistory.map((token) => {
+							return (
+								<li key={token.token}>
+									<button
+										onClick={() => {
+											setListToken(token.token);
+											redirect('/list');
+										}}
+									>
+										{token.alias
+											? token.alias + ' (' + token.token + ')'
+											: token.token}
+									</button>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+			) : null}
 			<p>{listNotFound}</p>
 		</div>
 	);
