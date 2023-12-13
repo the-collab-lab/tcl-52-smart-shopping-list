@@ -7,6 +7,7 @@ import { About } from './views/About';
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
@@ -60,7 +61,15 @@ export function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Layout listToken={listToken} />}>
+				<Route
+					path="/"
+					element={
+						<>
+							<ArchivalNoticeModal />
+							<Layout listToken={listToken} />
+						</>
+					}
+				>
 					<Route
 						index
 						element={
